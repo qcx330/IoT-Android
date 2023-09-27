@@ -17,9 +17,10 @@ public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
 
-    TextView valueHumidity, valueMoisture, valueTemperature;
-    TextView valueHumiditySlider, valueMoistureSlider, valueTemperatureSlider, valueSoilTemperatureSlider;
-    Slider humiditySlider, moistureSlider, temperatureSlider, soilTemperatureSlider;
+    TextView valueHumidity, valueTemperature, valueMaxTemp, valueMinTemp, valueFeelLike,
+            valueWindSpeed, valueWindDegrees, valueWindGust,
+            valuePressure, valueSeaLevel, valueGroundLevel;
+    Slider humiditySlider, temperatureSlider, PressureSlider, SeaLevelSlider, GroundLevelSlider;
 
 
 
@@ -31,25 +32,37 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        valueHumidity = binding.valueHumidity;
-        valueMoisture = binding.valueMoisture;
-        valueTemperature = binding.valueTemperature;
-
-        valueHumiditySlider = binding.valueHumiditySlider;
-        valueMoistureSlider = binding.valueMoistureSlider;
-        valueTemperatureSlider = binding.valueTemperatureSlider;
-        valueSoilTemperatureSlider = binding.valueSoilTemperatureSlider;
-
-        humiditySlider = binding.HumiditySlider;
-        moistureSlider = binding.MoistureSlider;
-        temperatureSlider = binding.TemperatureSlider;
-        soilTemperatureSlider = binding.SoilTemperatureSlider;
-
-        homeViewModel.startMQTT(getContext(), valueHumidity, valueHumiditySlider, humiditySlider);
+        mapping();
 
         return root;
     }
 
+    public void mapping(){
+        //độ ẩm
+        valueHumidity = binding.valueHumidity;
+        //nhiệt độ
+        valueTemperature = binding.valueTemperature;
+        valueMaxTemp = binding.valueMaxTemp;
+        valueMinTemp = binding.valueMinTemp;
+        valueFeelLike = binding.valueFeelLike;
+        //gió
+        valueWindSpeed = binding.valueWindSpeed;
+        valueWindDegrees = binding.valueWindDegrees;
+        valueWindGust = binding.valueWindGust;
+        //áp suất
+        valuePressure = binding.valuePressure;
+        //mực nước biển
+        valueSeaLevel = binding.valueSeaLevel;
+        //mực đất
+        valueGroundLevel = binding.valueGroundLevel;
+
+        //slider
+        humiditySlider = binding.HumiditySlider;
+        temperatureSlider = binding.TemperatureSlider;
+        PressureSlider = binding.PressureSlider;
+        SeaLevelSlider = binding.SeaLevelSlider;
+        GroundLevelSlider = binding.GroundLevelSlider;
+    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();

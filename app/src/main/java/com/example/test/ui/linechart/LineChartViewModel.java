@@ -1,4 +1,4 @@
-package com.example.test.ui.notifications;
+package com.example.test.ui.linechart;
 
 import android.graphics.Color;
 
@@ -14,12 +14,12 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NotificationsViewModel extends ViewModel {
+public class LineChartViewModel extends ViewModel {
 
     List<String> xValues;
     List<Entry> valueHumidity, valueMoisture, valueTemperature, valueSoilTemperature;
 
-    public NotificationsViewModel() {
+    public LineChartViewModel() {
     }
 
     public void InitLineChart(LineChart lineChart){

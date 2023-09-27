@@ -14,6 +14,7 @@ import org.eclipse.paho.client.mqttv3.MqttCallbackExtended;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.eclipse.paho.client.mqttv3.MqttPersistenceException;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 import java.util.ArrayList;
@@ -108,4 +109,20 @@ public class MqttHelper {
             ex.printStackTrace();
         }
     }
+    private void publishToTopic(String str) throws MqttException {
+        MqttMessage mess = new MqttMessage(str.getBytes());
+        mess.setQos(0);
+        mqttAndroidClient.publish(topic, mess, null, new IMqttActionListener() {
+            @Override
+            public void onSuccess(IMqttToken asyncActionToken) {
+                Log.d("Test", "Published!");
+            }
+
+            @Override
+            public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                Log.d("Test", "Published Fail!");
+            }
+        });
+    }
+
 }
