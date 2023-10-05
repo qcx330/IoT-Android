@@ -24,7 +24,6 @@ public class LineChartFragment extends Fragment {
     LineChart lineChart;
     List<Entry> valueHumidity, valueTemperature;
     LineDataSet humidity, temperature;
-    LineData lineDataHumidity, lineDataTemperature;
 
     private FragmentLinechartBinding binding;
 
