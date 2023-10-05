@@ -3,6 +3,10 @@ package com.example.test;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.test.model.Data;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.DisconnectedBufferOptions;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
@@ -19,13 +23,14 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
 public class MqttHelper {
     public MqttAndroidClient mqttAndroidClient;
-
     public final String topic = "nhom1/stations";
 
     Random random = new Random();
@@ -85,7 +90,8 @@ public class MqttHelper {
                         String stationName = parts[0].split(": ")[0];
                         String weatherData = parts[0].substring(parts[0].indexOf(": ") + 1);
                         String windData = parts[1];
-
+                        Data infoStation = new Data();
+                        infoStation.setTime(new Date());
                         System.out.println("Station Name: " + stationName);
                         try {
                             if (stationName.equals("station2")){
@@ -98,8 +104,11 @@ public class MqttHelper {
                                 System.out.println("Wind Data:");
                                 System.out.println("Wind Speed: " + speed);
                                 System.out.println("Wind Degree: " + deg);
+                                infoStation.setWindSpeed(speed);
+                                infoStation.setWindDeg(deg);
                                 if (gust != -1) {
                                     System.out.println("Wind Gust: " + gust);
+                                    infoStation.setWindGust(gust);
                                 }
                             }
                             else {
@@ -115,16 +124,24 @@ public class MqttHelper {
 
                                 System.out.println("Weather Data:");
                                 System.out.println("Temperature: " + temp);
+                                infoStation.setTemperature(temp);
                                 System.out.println("Feels Like: " + feelsLike);
+                                infoStation.setFeelsLike(feelsLike);
                                 System.out.println("Temp Min: " + tempMin);
+                                infoStation.setTempMin(tempMin);
                                 System.out.println("Temp Max: " + tempMax);
+                                infoStation.setTempMax(tempMax);
                                 System.out.println("Pressure: " + pressure);
+                                infoStation.setPressure(pressure);
                                 System.out.println("Humidity: " + humidity);
+                                infoStation.setHumidity(humidity);
                                 if (seaLevel != -1) {
                                     System.out.println("Sea Level: " + seaLevel);
+                                    infoStation.setSeaLevel(seaLevel);
                                 }
                                 if (grndLevel != -1) {
                                     System.out.println("Ground Level: " + grndLevel);
+                                    infoStation.setGrndLevel(grndLevel);
 
                                     System.out.println("Wind Info: " + windData);
                                 }
@@ -135,16 +152,19 @@ public class MqttHelper {
 
                                 System.out.println("Wind Data:");
                                 System.out.println("Wind Speed: " + speed);
+                                infoStation.setWindSpeed(speed);
                                 System.out.println("Wind Degree: " + deg);
+                                infoStation.setWindDeg(deg);
                                 if (gust != -1) {
                                     System.out.println("Wind Gust: " + gust);
+                                    infoStation.setWindGust(gust);
                                 }
-                            }
 
-                            System.out.println();
+                            }
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
                         }
+                        addNewData(stationName, infoStation);
                     }
                 }
 
@@ -156,6 +176,23 @@ public class MqttHelper {
 //
         } catch (MqttException ex) {
             ex.printStackTrace();
+        }
+    }
+    final FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+//    private DatabaseReference dataRef =  database.getReference();
+
+    public String formatDate(Date date){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ddMMyyyyHHmmss");
+        return simpleDateFormat.format(date);
+    }
+
+    public void addNewData(String path, Data stationInfo){
+        try {
+            DatabaseReference dataRef = database.getReference(path);
+            dataRef.child(formatDate(stationInfo.getTime())).setValue(stationInfo);
+        }catch (Exception e){
+            Log.d("FIREBASE", e.toString());
         }
     }
     public String reconstructedData (String str){

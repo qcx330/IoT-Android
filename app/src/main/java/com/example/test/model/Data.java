@@ -1,17 +1,17 @@
 package com.example.test.model;
 
+import java.util.Date;
+
 public class Data {
-    private String time;
-    private int station;
-    private float temperature;
-    private float feelsLike;
-    private float tempMin;
-    private float tempMax;
+    private Date time;
+    private double temperature;
+    private double feelsLike;
+    private double tempMin;
+    private double tempMax;
 
 
-    public Data(String time, int station, float temperature, float feelsLike, float tempMin, float tempMax, double windSpeed, int windDeg, double windGust, int pressure, int humidity, int seaLevel, int grndLevel) {
+    public Data(Date time, double temperature, double feelsLike, double tempMin, double tempMax, double windSpeed, int windDeg, double windGust, int pressure, int humidity, int seaLevel, int grndLevel) {
         this.time = time;
-        this.station = station;
         this.temperature = temperature;
         this.feelsLike = feelsLike;
         this.tempMin = tempMin;
@@ -61,51 +61,43 @@ public class Data {
     private double windSpeed;
     private int windDeg;
     private double windGust;
-    public String getTime() {
+    public Date getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(Date time) {
         this.time = time;
     }
 
-    public int getStation() {
-        return station;
-    }
-
-    public void setStation(int station) {
-        this.station = station;
-    }
-
-    public float getTemperature() {
+    public double getTemperature() {
         return temperature;
     }
 
-    public void setTemperature(float temperature) {
+    public void setTemperature(double temperature) {
         this.temperature = temperature;
     }
 
-    public float getFeelsLike() {
+    public double getFeelsLike() {
         return feelsLike;
     }
 
-    public void setFeelsLike(float feelsLike) {
+    public void setFeelsLike(double feelsLike) {
         this.feelsLike = feelsLike;
     }
 
-    public float getTempMin() {
+    public double getTempMin() {
         return tempMin;
     }
 
-    public void setTempMin(float tempMin) {
+    public void setTempMin(double tempMin) {
         this.tempMin = tempMin;
     }
 
-    public float getTempMax() {
+    public double getTempMax() {
         return tempMax;
     }
 
-    public void setTempMax(float tempMax) {
+    public void setTempMax(double tempMax) {
         this.tempMax = tempMax;
     }
 
