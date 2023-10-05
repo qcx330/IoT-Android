@@ -88,7 +88,7 @@ public class MqttHelper {
 
                         System.out.println("Station Name: " + stationName);
                         try {
-                            if (stationName.equals(" station2")){
+                            if (stationName.equals("station2")){
                                 JSONObject windJson = new JSONObject(windData);
 
                                 double speed = windJson.getDouble("speed");
@@ -102,41 +102,43 @@ public class MqttHelper {
                                     System.out.println("Wind Gust: " + gust);
                                 }
                             }
-                            JSONObject weatherJson = new JSONObject(weatherData);
-                            double temp = weatherJson.getDouble("temp");
-                            double feelsLike = weatherJson.getDouble("feels_like");
-                            double tempMin = weatherJson.getDouble("temp_min");
-                            double tempMax = weatherJson.getDouble("temp_max");
-                            int pressure = weatherJson.getInt("pressure");
-                            int humidity = weatherJson.getInt("humidity");
-                            int seaLevel = weatherJson.optInt("sea_level", -1);
-                            int grndLevel = weatherJson.optInt("grnd_level", -1);
+                            else {
+                                JSONObject weatherJson = new JSONObject(weatherData);
+                                double temp = weatherJson.getDouble("temp");
+                                double feelsLike = weatherJson.getDouble("feels_like");
+                                double tempMin = weatherJson.getDouble("temp_min");
+                                double tempMax = weatherJson.getDouble("temp_max");
+                                int pressure = weatherJson.getInt("pressure");
+                                int humidity = weatherJson.getInt("humidity");
+                                int seaLevel = weatherJson.optInt("sea_level", -1);
+                                int grndLevel = weatherJson.optInt("grnd_level", -1);
 
-                            System.out.println("Weather Data:");
-                            System.out.println("Temperature: " + temp);
-                            System.out.println("Feels Like: " + feelsLike);
-                            System.out.println("Temp Min: " + tempMin);
-                            System.out.println("Temp Max: " + tempMax);
-                            System.out.println("Pressure: " + pressure);
-                            System.out.println("Humidity: " + humidity);
-                            if (seaLevel != -1) {
-                                System.out.println("Sea Level: " + seaLevel);
-                            }
-                            if (grndLevel != -1) {
-                                System.out.println("Ground Level: " + grndLevel);
+                                System.out.println("Weather Data:");
+                                System.out.println("Temperature: " + temp);
+                                System.out.println("Feels Like: " + feelsLike);
+                                System.out.println("Temp Min: " + tempMin);
+                                System.out.println("Temp Max: " + tempMax);
+                                System.out.println("Pressure: " + pressure);
+                                System.out.println("Humidity: " + humidity);
+                                if (seaLevel != -1) {
+                                    System.out.println("Sea Level: " + seaLevel);
+                                }
+                                if (grndLevel != -1) {
+                                    System.out.println("Ground Level: " + grndLevel);
 
-                                System.out.println("Wind Info: " + windData);
-                            }
-                            JSONObject windJson = new JSONObject(windData);
-                            double speed = windJson.getDouble("speed");
-                            int deg = windJson.getInt("deg");
-                            double gust = windJson.optDouble("gust", -1);
+                                    System.out.println("Wind Info: " + windData);
+                                }
+                                JSONObject windJson = new JSONObject(windData);
+                                double speed = windJson.getDouble("speed");
+                                int deg = windJson.getInt("deg");
+                                double gust = windJson.optDouble("gust", -1);
 
-                            System.out.println("Wind Data:");
-                            System.out.println("Wind Speed: " + speed);
-                            System.out.println("Wind Degree: " + deg);
-                            if (gust != -1) {
-                                System.out.println("Wind Gust: " + gust);
+                                System.out.println("Wind Data:");
+                                System.out.println("Wind Speed: " + speed);
+                                System.out.println("Wind Degree: " + deg);
+                                if (gust != -1) {
+                                    System.out.println("Wind Gust: " + gust);
+                                }
                             }
 
                             System.out.println();
