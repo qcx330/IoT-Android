@@ -7,8 +7,8 @@
         android:title="@string/title_home" />
 
     <item
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_linechart"
         android:icon="@drawable/ic_chart"
-        android:title="Line chart" />
+        android:title="@string/title_linechart" />
 
 </menu>

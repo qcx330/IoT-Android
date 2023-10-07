@@ -180,17 +180,12 @@ public class MqttHelper {
     }
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-//    private DatabaseReference dataRef =  database.getReference();
 
-    public String formatDate(Date date){
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ddMMyyyyHHmmss");
-        return simpleDateFormat.format(date);
-    }
 
     public void addNewData(String path, Data stationInfo){
         try {
             DatabaseReference dataRef = database.getReference(path);
-            dataRef.child(formatDate(stationInfo.getTime())).setValue(stationInfo);
+            dataRef.child(utils.formatDate(stationInfo.getTime())).setValue(stationInfo);
         }catch (Exception e){
             Log.d("FIREBASE", e.toString());
         }
