@@ -35,6 +35,7 @@ public class LineChartViewModel extends ViewModel {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     private MutableLiveData<String> stationName = new MutableLiveData<>();
+
     public MutableLiveData<String> getStationName() {
         return stationName;
     }
@@ -42,6 +43,7 @@ public class LineChartViewModel extends ViewModel {
     public void setStationName(String value) {
         stationName.setValue(value);
     }
+
     public void setStationNameAsync(String value) {
         new Thread(() -> {
             // Simulate a delay
@@ -55,8 +57,10 @@ public class LineChartViewModel extends ViewModel {
             stationName.postValue(value);
         }).start();
     }
+
     public LineChartViewModel() {
     }
+
     private MutableLiveData<LineData> lineChartData = new MutableLiveData<>();
 
     public MutableLiveData<LineData> getLineChartData() {
@@ -69,7 +73,7 @@ public class LineChartViewModel extends ViewModel {
     }
 
 
-    public void updateChart(String path){
+    public void updateChart(String path) {
         DatabaseReference dataRef = database.getReference(path);
         dataRef.orderByKey().limitToLast(5).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -88,12 +92,14 @@ public class LineChartViewModel extends ViewModel {
                 }
                 Collections.sort(temperatureEntries, new EntryXComparator());
                 Collections.sort(humidityEntries, new EntryXComparator());
-                    tempSet = new LineDataSet(temperatureEntries, "Temperature");
-                    tempSet.setColor(Color.RED);
-                    humiSet = new LineDataSet(humidityEntries, "Humidity");
-                    humiSet.setColor(Color.BLUE);
+                tempSet = new LineDataSet(temperatureEntries, "Temperature");
+                tempSet.setColor(Color.RED);
+                tempSet.setLineWidth(2f);
+                humiSet = new LineDataSet(humidityEntries, "Humidity");
+                humiSet.setColor(Color.BLUE);
+                humiSet.setLineWidth(2f);
 
-                    updateLineChartData(tempSet, humiSet);
+                updateLineChartData(tempSet, humiSet);
             }
 
             @Override
