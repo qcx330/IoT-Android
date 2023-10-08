@@ -1,6 +1,5 @@
 package com.example.test.ui.linechart;
 
-import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,8 +13,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.test.databinding.FragmentLinechartBinding;
-import com.example.test.ui.home.HomeFragment;
-import com.example.test.utils;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;

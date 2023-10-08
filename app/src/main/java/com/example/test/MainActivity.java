@@ -5,17 +5,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.test.ui.home.HomeFragment;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.example.test.databinding.ActivityMainBinding;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-
-import com.example.test.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
     Button btnS1, btnS2,btnS3,btnS4,btnS5;
@@ -40,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
         btnS5 = binding.btnS5;
         final androidx.fragment.app.FragmentManager fragmentManager = getSupportFragmentManager();
         final androidx.fragment.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        final HomeFragment mFragment = new HomeFragment();
         btnS1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
