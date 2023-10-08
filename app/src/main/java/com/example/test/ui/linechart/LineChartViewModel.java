@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.test.utils;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
@@ -30,11 +31,6 @@ import java.util.Date;
 import java.util.List;
 
 public class LineChartViewModel extends ViewModel {
-
-//    List<String> xValues;
-//    List<Entry> valueHumidity, valueMoisture, valueTemperature, valueSoilTemperature;
-    ArrayList<Entry> humidityEntries = new ArrayList<>();
-    ArrayList<Entry> temperatureEntries = new ArrayList<>();
     LineDataSet tempSet, humiSet;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
@@ -46,6 +42,19 @@ public class LineChartViewModel extends ViewModel {
     public void setStationName(String value) {
         stationName.setValue(value);
     }
+    public void setStationNameAsync(String value) {
+        new Thread(() -> {
+            // Simulate a delay
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            // Update the LiveData with the result
+            stationName.postValue(value);
+        }).start();
+    }
     public LineChartViewModel() {
     }
     private MutableLiveData<LineData> lineChartData = new MutableLiveData<>();
@@ -54,8 +63,9 @@ public class LineChartViewModel extends ViewModel {
         return lineChartData;
     }
 
-    public void updateLineChartData(LineData data) {
-        lineChartData.setValue(data);
+    public void updateLineChartData(LineDataSet dataSet1, LineDataSet dataSet2) {
+        LineData lineData = new LineData(dataSet1, dataSet2);
+        lineChartData.setValue(lineData);
     }
 
 
@@ -72,28 +82,18 @@ public class LineChartViewModel extends ViewModel {
                     float temperature = childSnapshot.child("temperature").getValue(Float.class);
                     float humidity = childSnapshot.child("humidity").getValue(Float.class);
 
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
-                    Timestamp timestamp = new Timestamp(date.getTime());
-                    float floatDate = (float) (timestamp.getTime() / 1000.0);
-                    temperatureEntries.add(new Entry(floatDate, temperature));
+                    float floatDate = date.getTime();
+                    temperatureEntries.add(new Entry(floatDate, (float) utils.doiNhietDo(temperature)));
                     humidityEntries.add(new Entry(floatDate, humidity));
-                    Log.d("LINECHART", "key: " +childSnapshot.getKey());
-                    Log.d("LINECHART", "key: " + dateFormat.format(date));
-                    Log.d("LINECHART", "key: " + String.valueOf(temperature));
                 }
                 Collections.sort(temperatureEntries, new EntryXComparator());
                 Collections.sort(humidityEntries, new EntryXComparator());
-                try {
                     tempSet = new LineDataSet(temperatureEntries, "Temperature");
                     tempSet.setColor(Color.RED);
                     humiSet = new LineDataSet(humidityEntries, "Humidity");
                     humiSet.setColor(Color.BLUE);
 
-//                    updateLineChartData(tempSet, humiSet);
-                }catch (Exception e)
-                {
-                    Log.d("chart", e.toString());
-                }
+                    updateLineChartData(tempSet, humiSet);
             }
 
             @Override
@@ -102,31 +102,5 @@ public class LineChartViewModel extends ViewModel {
             }
         });
     }
-
-//    public void InitLineChart(LineChart lineChart){
-//        xValues = new ArrayList<>();
-//        Description description = new Description();
-//        description.setText("Soil Temperature (Last 30 Days)");
-//        description.setPosition(150f, 15f);
-//        lineChart.setDescription(description);
-//        lineChart.getAxisRight().setDrawLabels(false);
-//
-//        XAxis xAxis = lineChart.getXAxis();
-//        for(int j = 1; j <= 2; j++)
-//            for(int i = 1; i <= 12; i++)
-//                xValues.add(i + "AM");
-//        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-//        xAxis.setValueFormatter(new IndexAxisValueFormatter(xValues));
-//        xAxis.setLabelCount(4);
-//        xAxis.setAxisLineColor(Color.WHITE);
-//        xAxis.setGranularity(1f);
-//
-//        YAxis yAxis = lineChart.getAxisLeft();
-//        yAxis.setAxisMinimum(-150f);
-//        yAxis.setAxisMaximum(100f);
-//        yAxis.setAxisLineWidth(2f);
-//        yAxis.setAxisLineColor(Color.WHITE);
-//        yAxis.setLabelCount(50);
-//    }
 
 }

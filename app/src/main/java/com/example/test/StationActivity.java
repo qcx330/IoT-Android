@@ -26,6 +26,7 @@ public class StationActivity extends AppCompatActivity {
 
     private ActivityStationBinding binding;
     private HomeViewModel homeViewModel;
+    private LineChartViewModel lineChartViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +36,14 @@ public class StationActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        lineChartViewModel = new ViewModelProvider(this).get(LineChartViewModel.class);
 
         Intent intent = this.getIntent();
         String stationName = intent.getStringExtra("stationName");
         Log.d("TEST-INTENT", stationName);
 
         homeViewModel.setStationNameAsync(stationName);
+        lineChartViewModel.setStationNameAsync(stationName);
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each

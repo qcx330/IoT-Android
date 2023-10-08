@@ -27,7 +27,6 @@ import com.google.firebase.database.ValueEventListener;
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
     TextView valueHumidity, valueTemperature, valueMaxTemp, valueMinTemp, valueFeelLike,
             valueWindSpeed, valueWindDegrees, valueWindGust,
             valuePressure, valueSeaLevel, valueGroundLevel;
@@ -145,63 +144,6 @@ public class HomeFragment extends Fragment {
 
         return root;
     }
-//    public void getData(String path){
-//        DatabaseReference dataRef = database.getReference(path);
-//        dataRef.orderByKey().limitToLast(1).addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                for (DataSnapshot childSnapshot : snapshot.getChildren()){
-//                    Double temperature = childSnapshot.child("temperature").getValue(Double.class);
-//                    valueTemperature.setText(String.valueOf(utils.doiNhietDo(temperature)));
-//                    if (utils.doiNhietDo(temperature) < 0)
-//                        temperatureSlider.setValue(0);
-//                    else temperatureSlider.setValue((float) utils.doiNhietDo(temperature));
-//                    Double feelsLike = childSnapshot.child("feelsLike").getValue(Double.class);
-//                    valueFeelLike.setText(String.valueOf(utils.doiNhietDo(feelsLike)));
-//                    Double tempMin = childSnapshot.child("tempMin").getValue(Double.class);
-//                    valueMinTemp.setText(String.valueOf(utils.doiNhietDo(tempMin)));
-//                    Double tempMax = childSnapshot.child("tempMax").getValue(Double.class);
-//                    valueMaxTemp.setText(String.valueOf(utils.doiNhietDo(tempMax)));
-//                    Double windSpeed = childSnapshot.child("windSpeed").getValue(Double.class);
-//                    valueWindSpeed.setText(String.valueOf(Math.round(windSpeed*10/10)));
-//                    int windDeg = childSnapshot.child("windDeg").getValue(Integer.class);
-//                    valueWindDegrees.setText(String.valueOf(windDeg));
-//                    Double windGust = childSnapshot.child("windGust").getValue(Double.class);
-//                    valueWindGust.setText(String.valueOf(windGust));
-//
-//                    int pressure = childSnapshot.child("pressure").getValue(Integer.class);
-//                    valuePressure.setText(String.valueOf(pressure));
-//                    if (pressure < 500)
-//                        PressureSlider.setValue(500);
-//                    else PressureSlider.setValue(pressure);
-//
-//                    int humidity = childSnapshot.child("humidity").getValue(Integer.class);
-//                    valueHumidity.setText(String.valueOf(humidity));
-//                    if (humidity < 0)
-//                        humiditySlider.setValue(0);
-//                    else humiditySlider.setValue(humidity);
-//
-//                    int seaLevel = childSnapshot.child("seaLevel").getValue(Integer.class);
-//                    valueSeaLevel.setText(String.valueOf(seaLevel));
-//                    if (seaLevel < 500)
-//                        SeaLevelSlider.setValue(500);
-//                    else SeaLevelSlider.setValue(seaLevel);
-//
-//                    int grndLevel = childSnapshot.child("grndLevel").getValue(Integer.class);
-//                    valueGroundLevel.setText(String.valueOf(grndLevel));
-//                    if (grndLevel < 500)
-//                        GroundLevelSlider.setValue(500);
-//                    else GroundLevelSlider.setValue(grndLevel);
-//                }
-//            }
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//                System.out.println("Database Error: " + error.getMessage());
-//            }
-//        });
-//    }
-
-
     public void mapping(){
         //độ ẩm
         valueHumidity = binding.valueHumidity;
