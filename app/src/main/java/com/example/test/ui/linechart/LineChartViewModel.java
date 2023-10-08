@@ -46,7 +46,7 @@ public class LineChartViewModel extends ViewModel {
         new Thread(() -> {
             // Simulate a delay
             try {
-                Thread.sleep(500);
+                Thread.sleep(300);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
