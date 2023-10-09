@@ -75,6 +75,7 @@ public class LineChartFragment extends Fragment {
     }
     private void setupLineChart() {
         XAxis xAxis = lineChart.getXAxis();
+        xAxis.setTextSize(12f);
         SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm"); // Customize the time format as needed
         xAxis.setValueFormatter(new TimeAxisValueFormatter(dateFormat));
     }

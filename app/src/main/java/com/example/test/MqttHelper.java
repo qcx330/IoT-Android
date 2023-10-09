@@ -44,10 +44,6 @@ public class MqttHelper {
 
     }
 
-//    public void setCallback(MqttCallbackExtended callback) {
-//        mqttAndroidClient.setCallback(callback);
-//    }
-
     public void connect() {
         MqttConnectOptions mqttConnectOptions = new MqttConnectOptions();
         mqttConnectOptions.setAutomaticReconnect(true);
@@ -214,6 +210,7 @@ public class MqttHelper {
             ex.printStackTrace();
         }
     }
+
     private void publishToTopic(String str) throws MqttException {
         MqttMessage mess = new MqttMessage(str.getBytes());
         mess.setQos(0);
