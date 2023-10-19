@@ -28,7 +28,6 @@ public class AdafruitConnect {
     public final String[] topic = {"qcx330/feeds/nutnhan1", "qcx330/feeds/nutnhan2"};
     private static final String BROKER_URI = "tcp://io.adafruit.com:1883";
     private static final String USERNAME = "qcx330";
-    //change key to ->aio_aiJP26xiHS0rci38YdxYDcyl7JzW
     private static final String PASSWORD = "aio_yRJc76ZnjvAXYj9ZJCU6Kna5sdHL";
     Random random = new Random();
     final String clientId = "publish-" + random.nextInt(1000) + 1;
